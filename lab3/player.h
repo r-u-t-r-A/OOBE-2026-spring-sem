@@ -10,9 +10,14 @@ class Player {
         uint32_t id;
         uint8_t level;
     public:
-    Player() {
-        id = 0;
-    };
+        Player();
+        Player(Player &source) : name(source.name), id(source.id), level(source.level) {}
+        const void levelUP();
+        std::string getName();
+        uint8_t getLevel();
+        const void setName(std::string name);
+        const void setLevel(uint8_t level);
+        uint32_t getId();
 
 };
 
