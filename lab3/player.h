@@ -4,6 +4,8 @@
 #include <string>
 #include <cstdint>
 
+enum class PlayerField { Name, Id, Level };
+
 class Player {
     private:
         std::string name;
@@ -19,6 +21,19 @@ class Player {
         const void setLevel(uint8_t level);
         uint32_t getId();
 
+        template <PlayerField F>
+        auto& debugReference() {
+            if constexpr (F == PlayerField::Name) return name;
+            else if constexpr (F == PlayerField::Id) return id;
+            else if constexpr (F == PlayerField::Level) return level;
+        }
+
+        template <PlayerField F>
+        auto* debugPointer() {
+            if constexpr (F == PlayerField::Name) return &name;
+            else if constexpr (F == PlayerField::Id) return &id;
+            else if constexpr (F == PlayerField::Level) return &level;
+        }
 };
 
 #endif
