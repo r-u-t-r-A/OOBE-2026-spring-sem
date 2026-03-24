@@ -1,22 +1,18 @@
 #include "munchkinplayer.h"
 #include <random>
+#define number_of_classes 6
+#define number_of_races 5
 
 MunchkinPlayer::MunchkinPlayer() : Player(), armour(0), weapon(0) {
     setLevel(1);
-    auto randomClass = []() -> munchkinClass {
+    auto randominteger = [](int max) -> int {
         std::random_device rd;  
         std::mt19937 gen(rd()); 
-        std::uniform_int_distribution<munchkinClass> dist(munchkinClass::wizard, munchkinClass::ranger); 
+        std::uniform_int_distribution<int> dist(1, max); 
         return dist(gen);
     };
-    auto randomRace = []() -> munchkinRace {
-        std::random_device rd;  
-        std::mt19937 gen(rd()); 
-        std::uniform_int_distribution<munchkinRace> dist(munchkinRace::elf, munchkinRace::gnome); 
-        return dist(gen);
-    };
-    playerClass = randomClass();
-    playerRace = randomRace();
+    playerClass = static_cast<munchkinClass>(randominteger(number_of_classes) - 1);
+    playerRace = static_cast<munchkinRace>(randominteger(number_of_races) - 1);
 };
 
 const void MunchkinPlayer::setPlayerClass(munchkinClass inputClass) {
