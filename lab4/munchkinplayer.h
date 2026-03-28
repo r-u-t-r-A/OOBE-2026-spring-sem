@@ -17,11 +17,14 @@ class MunchkinPlayer: public Player {
         const void setWeapon(uint8_t inputWeapon);
         uint8_t getWeapon();
         virtual const void levelUp();
+        static const void increaseMonsterCounter();
+        const void fightMonster();
     private:
         uint8_t armour;
         uint8_t weapon;
         munchkinClass playerClass;
         munchkinRace playerRace;
+        static uint8_t monsterCounter;
 };  
 
 #endif

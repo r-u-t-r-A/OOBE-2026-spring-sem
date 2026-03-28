@@ -3,6 +3,8 @@
 #define number_of_classes 6
 #define number_of_races 5
 
+uint8_t MunchkinPlayer::monsterCounter = 0;
+
 MunchkinPlayer::MunchkinPlayer() : Player(), armour(0), weapon(0) {
     setLevel(1);
     auto randominteger = [](int max) -> int {
@@ -48,4 +50,37 @@ uint8_t MunchkinPlayer::getWeapon() {
 
 const void MunchkinPlayer::levelUp() {
     Player::setLevel(getLevel() + 2);
+}
+
+const void MunchkinPlayer::increaseMonsterCounter() {
+    monsterCounter++;
+}
+
+const void MunchkinPlayer::fightMonster() {
+    increaseMonsterCounter();
+    auto randominteger = [](int max) -> int {
+            std::random_device rd;  
+            std::mt19937 gen(rd()); 
+            std::uniform_int_distribution<int> dist(1, max); 
+            return dist(gen);
+        };
+    
+    int monsterLevel = randominteger(20);
+    int playerPower = getLevel() + getArmour() + getWeapon();
+    if (playerPower >= monsterLevel) {
+        levelUp();
+        
+        int armourOrWeapon = randominteger(2);
+        int boostAmount = randominteger(3);
+        
+        if (armourOrWeapon == 1) {
+            setArmour(getArmour() + boostAmount);
+        } else {
+            setWeapon(getWeapon() + boostAmount); 
+        }
+    } else {
+        if (getLevel() > 1) {
+           Player::setLevel(getLevel() - 1); 
+        }
+    }
 }
