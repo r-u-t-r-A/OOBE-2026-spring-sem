@@ -66,8 +66,8 @@ const void MunchkinPlayer::fightMonster() {
         };
     
     int monsterLevel = randominteger(20);
-    int playerPower = getLevel() + getArmour() + getWeapon();
-    if (playerPower >= monsterLevel) {
+   
+    if (getLevel() + armour + weapon >= monsterLevel) {
         levelUp();
         
         int armourOrWeapon = randominteger(2);
